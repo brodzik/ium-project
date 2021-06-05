@@ -1,8 +1,9 @@
 from __future__ import annotations
 import dataclasses
 from dataclasses import dataclass
-from typing import Callable, Literal, TypedDict, cast, get_args
+import random
 import typing
+from typing import Callable, List, Literal, TypedDict, cast, get_args
 from datetime import datetime
 import math
 
@@ -294,3 +295,25 @@ def predict(query: Query, model_type: ModelType):
     result = model_callback(features)
 
     return result
+
+
+@dataclass
+class Model:
+    name: str
+    callback: ModelCallback
+
+
+@app.post("/ab-test")
+def ab_test(query: Query):
+    features = query.to_features()
+
+    models: List[Model] = [
+        Model(name="simple", callback=models_callbacks.simple),
+        Model(name="xgboost", callback=models_callbacks.xgboost),
+        Model(name="random_forest", callback=models_callbacks.random_forest),
+    ]
+
+    chosed_model = random.choice(models)
+    expected_time = chosed_model.callback(features)
+
+    return {"model_type": chosed_model.name, "expected_time": expected_time}

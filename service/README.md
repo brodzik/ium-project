@@ -1,7 +1,7 @@
 # Service
 1. Run
 ```
-uvicorn main:app --reload
+uvicorn service.main:app --reload
 ```
 
 2. Go to site

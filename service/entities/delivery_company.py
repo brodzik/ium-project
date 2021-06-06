@@ -1,6 +1,5 @@
-from typing import Literal, TypedDict, cast
 import typing
-
+from typing import Literal, TypedDict, cast
 
 DeliveryCompany = Literal["360", "516", "620"]
 

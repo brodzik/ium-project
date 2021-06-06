@@ -1,14 +1,12 @@
-from dataclasses import dataclass
 import dataclasses
-import xgboost
+from dataclasses import dataclass
 from typing import Callable, Literal
-import pandas as pd
 
-from sklearn.ensemble import RandomForestRegressor
 import joblib
-
-from entities.city import city_from_features
-
+import pandas as pd
+import xgboost
+from service.entities.city import city_from_features
+from sklearn.ensemble import RandomForestRegressor
 
 ExpectedTime = float
 
@@ -30,9 +28,15 @@ def not_implemented_model_callback(features: pd.DataFrame) -> ExpectedTime:
 
 @dataclass
 class ModelNameToCallback:
-    simple: ModelCallback = dataclasses.field(default_factory=lambda: not_implemented_model_callback)
-    xgboost: ModelCallback = dataclasses.field(default_factory=lambda: not_implemented_model_callback)
-    random_forest: ModelCallback = dataclasses.field(default_factory=lambda: not_implemented_model_callback)
+    simple: ModelCallback = dataclasses.field(
+        default_factory=lambda: not_implemented_model_callback
+    )
+    xgboost: ModelCallback = dataclasses.field(
+        default_factory=lambda: not_implemented_model_callback
+    )
+    random_forest: ModelCallback = dataclasses.field(
+        default_factory=lambda: not_implemented_model_callback
+    )
 
 
 def simple_model_callback_from_statistic(statistic: pd.DataFrame) -> ModelCallback:
@@ -50,7 +54,7 @@ def simple_model_callback_from_statistic(statistic: pd.DataFrame) -> ModelCallba
 
 
 def load_simple_model_callback() -> ModelCallback:
-    statistic_for_simple_model = pd.read_csv("../models/statistic_for_simple_model.csv")
+    statistic_for_simple_model = pd.read_csv("models/statistic_for_simple_model.csv")
     simple_model_callback = simple_model_callback_from_statistic(
         statistic_for_simple_model
     )
@@ -59,7 +63,7 @@ def load_simple_model_callback() -> ModelCallback:
 
 def load_xgboost_model_callback() -> ModelCallback:
     xgboost_model = xgboost.XGBRegressor()
-    xgboost_model.load_model("../models/xgboost.json")
+    xgboost_model.load_model("models/xgboost.json")
 
     def xgboost_model_callback(features: pd.DataFrame) -> ExpectedTime:
         predict = xgboost_model.predict(features)
@@ -70,7 +74,7 @@ def load_xgboost_model_callback() -> ModelCallback:
 
 def load_random_forest_model_callback() -> ModelCallback:
     random_forest_model: RandomForestRegressor = joblib.load(
-        "../models/random_forest.joblib"
+        "models/random_forest.joblib"
     )
 
     def random_forest_model_callback(features: pd.DataFrame) -> ExpectedTime:

@@ -1,5 +1,5 @@
 import typing
-from typing import Literal, TypedDict, cast
+from typing import Literal, Optional, TypedDict, cast
 
 import pandas as pd
 
@@ -28,17 +28,18 @@ CodedCity = TypedDict(
 )
 
 
-def code_city(city: City) -> CodedCity:
+def code_city(city: str) -> CodedCity:
     coded_city = cast(
         CodedCity, {"city_" + city_name: False for city_name in typing.get_args(City)}
     )
-    coded_city["city_" + city] = True
+    if city in typing.get_args(City):
+        coded_city["city_" + city] = True
     return coded_city
 
 
-def city_from_features(features: pd.DataFrame) -> City:
+def city_from_features(features: pd.DataFrame) -> Optional[City]:
     for city in typing.get_args(City):
         if bool(features["city_" + city][0]) is True:
             return city
 
-    raise TypeError("Incorrect features (no city was selected)")
+    return None

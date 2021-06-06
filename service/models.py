@@ -1,6 +1,7 @@
 import dataclasses
 from dataclasses import dataclass
 from typing import Callable, Literal
+import statistics
 
 import joblib
 import pandas as pd
@@ -13,7 +14,7 @@ ExpectedTime = float
 ModelCallback = Callable[[pd.DataFrame], ExpectedTime]
 
 
-ModelName = Literal["simple", "xgboost", "random-forest"]
+ModelName = Literal["simple", "xgboost", "random_forest"]
 
 
 @dataclass
@@ -44,9 +45,12 @@ def simple_model_callback_from_statistic(statistic: pd.DataFrame) -> ModelCallba
     cities = statistic_as_dict["city"].values()
     means = statistic_as_dict["mean"].values()
     city_to_mean = {city: mean for city, mean in zip(cities, means)}
+    mean_of_means = statistics.mean(city_to_mean.values())
 
     def simple_model_callback(features: pd.DataFrame) -> ExpectedTime:
         city = city_from_features(features)
+        if city is None:
+            return mean_of_means
         mean = city_to_mean[city]
         return mean
 

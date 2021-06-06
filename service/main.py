@@ -9,11 +9,15 @@ from service import ab_test_logs
 from service.ab_test_logs import ABTestLogCreate
 from service.database import get_db
 from service.entities.delivery_company import DeliveryCompany
-from service.models import (Model, ModelCallback, ModelName,
-                            ModelNameToCallback,
-                            load_random_forest_model_callback,
-                            load_simple_model_callback,
-                            load_xgboost_model_callback)
+from service.models import (
+    Model,
+    ModelCallback,
+    ModelName,
+    ModelNameToCallback,
+    load_random_forest_model_callback,
+    load_simple_model_callback,
+    load_xgboost_model_callback,
+)
 from service.query import Query, Result
 
 app = FastAPI()

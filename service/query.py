@@ -37,4 +37,4 @@ class Query(BaseModel):
         return df
 
 
-Result = TypedDict("Result", {"360": float, "516": int, "620": str})
+Result = TypedDict("Result", {"360": float, "516": float, "620": float})

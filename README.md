@@ -18,9 +18,9 @@
 Proste przedstawienie działąnia serwisu znajduje się w notebooku `./Service showcase.ipynb`.
 
 ### Wymagania
+1. Python 3.8
 
-1. Pakiety:
-- python 3.8
+2. Pakiety:
 - fastapi
 - uvicorn
 - sqlalchemy
@@ -29,7 +29,7 @@ Proste przedstawienie działąnia serwisu znajduje się w notebooku `./Service s
 - sklearn
 - xgboost
 
-2. Baze SQLite znajdująca się pod ścieżką `service/sql_app.db` posiadającą tabelę o następującą strukturze:
+3. Baze SQLite znajdująca się pod ścieżką `service/sql_app.db` posiadającą tabelę o następującą strukturze:
 ```
 CREATE TABLE "ab-test-logs" ("id" integer NOT NULL,"query_id" integer NOT NULL,"query" text NOT NULL,"model_name" text NOT NULL,"result" text NOT NULL, PRIMARY KEY (id));
 ```

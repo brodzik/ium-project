@@ -1,32 +1,20 @@
-import dataclasses
 import random
-from datetime import datetime
-
-from service.database import get_db
-from service.query import Query, Result
-from typing import List, cast
 import typing
+from typing import List, cast
 
-from fastapi import FastAPI, Depends
-from pydantic import BaseModel
+from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
-from .models import (
-    Model,
-    ModelCallback,
-    ModelName,
-    ModelNameToCallback,
-    load_random_forest_model_callback,
-    load_simple_model_callback,
-    load_xgboost_model_callback,
-)
 from service import ab_test_logs
 from service.ab_test_logs import ABTestLogCreate
-from service.entities.category import Category, code_category
-from service.entities.city import City, code_city
-from service.entities.delivery_company import DeliveryCompany, code_delivery_compnay
-from service.entities.purchase_datetime import CodedPurchaseDateTime
-
+from service.database import get_db
+from service.entities.delivery_company import DeliveryCompany
+from service.models import (Model, ModelCallback, ModelName,
+                            ModelNameToCallback,
+                            load_random_forest_model_callback,
+                            load_simple_model_callback,
+                            load_xgboost_model_callback)
+from service.query import Query, Result
 
 app = FastAPI()
 

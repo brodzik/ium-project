@@ -1,11 +1,12 @@
-from sqlalchemy import Column, Integer, String
-from pydantic import BaseModel
-from sqlalchemy.orm import Session
 import json
 
-from .database import Base
-from service.query import Query, Result
+from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import Session
+
+from service.database import Base
 from service.models import ModelName
+from service.query import Query, Result
 
 
 class ABTestLogTable(Base):

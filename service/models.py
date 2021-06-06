@@ -1,13 +1,14 @@
 import dataclasses
+import statistics
 from dataclasses import dataclass
 from typing import Callable, Literal
-import statistics
 
 import joblib
 import pandas as pd
 import xgboost
-from service.entities.city import city_from_features
 from sklearn.ensemble import RandomForestRegressor
+
+from service.entities.city import city_from_features
 
 ExpectedTime = float
 

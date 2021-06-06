@@ -1,13 +1,15 @@
 import dataclasses
 from datetime import datetime
-from typing_extensions import TypedDict
 
 import pandas as pd
-from service.entities.category import Category, code_category
-from service.entities.city import City, code_city
-from service.entities.delivery_company import DeliveryCompany, code_delivery_compnay
-from service.entities.purchase_datetime import CodedPurchaseDateTime
 from pydantic import BaseModel
+from typing_extensions import TypedDict
+
+from service.entities.category import Category, code_category
+from service.entities.city import code_city
+from service.entities.delivery_company import (DeliveryCompany,
+                                               code_delivery_compnay)
+from service.entities.purchase_datetime import CodedPurchaseDateTime
 
 
 class Query(BaseModel):

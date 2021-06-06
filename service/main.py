@@ -40,16 +40,16 @@ async def startup_event():
 
 
 @app.post("/predict")
-def predict(query: Query, model_type: ModelName):
+def predict(query: Query, model_name: ModelName):
     delivery_company_to_features = {
         delivery_company: query.to_features(delivery_company)
         for delivery_company in typing.get_args(DeliveryCompany)
     }
 
     model_callback: ModelCallback
-    if model_type == "simple":
+    if model_name == "simple":
         model_callback = model_name_to_callback.simple
-    elif model_type == "xgboost":
+    elif model_name == "xgboost":
         model_callback = model_name_to_callback.xgboost
     else:
         model_callback = model_name_to_callback.random_forest
